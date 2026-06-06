@@ -1,102 +1,252 @@
 # ✈️ AeroCode — Sistema de Gestão da Produção Aeronáutica
 
-Sistema web desenvolvido como SPA (Single Page Application) em React para gerenciamento da produção de aeronaves. Desenvolvido como parte da Atividade de Avaliação Individual 2 (AV2) da disciplina de Programação Orientada a Objetos.
+Sistema web completo para gerenciamento da produção aeronáutica, desenvolvido com React, Node.js, TypeScript, MySQL e Prisma ORM.
 
----
+Projeto desenvolvido como parte da Atividade de Avaliação Individual 3 (AV3) da disciplina de Programação Orientada a Objetos.
+
+
 
 ## 📋 Sobre o Projeto
 
-O AeroCode é um protótipo navegável de interface gráfica (GUI) para o sistema de gestão da produção de aeronaves da **Aerocode**, substituindo a interface de linha de comando (CLI) existente. O objetivo é oferecer uma experiência visual intuitiva para engenheiros de produção e engenheiros aeronáuticos que atuam na gestão e acompanhamento da fabricação de aeronaves.
+O AeroCode é uma aplicação web para gerenciamento da produção de aeronaves, permitindo o controle de aeronaves, peças, testes, etapas de produção, funcionários e relatórios operacionais.
 
-O sistema é desenvolvido exclusivamente como **front-end** (sem back-end), utilizando dados mockados, e pode ser executado localmente em servidores Windows 10+ e Linux Ubuntu 24.04+.
+A aplicação representa a evolução do projeto desenvolvido nas avaliações anteriores:
 
----
+- **AV1:** Sistema CLI em TypeScript
+- **AV2:** Interface gráfica SPA em React
+- **AV3:** Aplicação Web completa com banco de dados, API REST e autenticação
+
+O sistema foi projetado considerando os requisitos de um ambiente crítico de produção aeronáutica, buscando escalabilidade, confiabilidade e facilidade de manutenção.
+
+
+
+## 🏗️ Arquitetura
+
+### Front-end
+
+- React 18
+- Context API
+- CSS
+- Lucide React
+
+### Back-end
+
+- Node.js
+- Express
+- TypeScript
+- JWT Authentication
+
+### Banco de Dados
+
+- MySQL
+
+### ORM
+
+- Prisma ORM
+
+
 
 ## 🚀 Tecnologias Utilizadas
 
-| Tecnologia | Versão | Finalidade |
-|---|---|---|
-| React | 18.2.0 | Framework principal (SPA) |
-| react-scripts | 5.0.1 | Build e servidor de desenvolvimento |
-| lucide-react | 0.383.0 | Ícones da interface |
-| CSS puro | — | Estilização customizada |
+| Tecnologia | Finalidade |
+|------------|------------|
+| React | Interface do usuário |
+| TypeScript | Desenvolvimento tipado |
+| Node.js | Ambiente de execução |
+| Express | API REST |
+| Prisma ORM | Persistência de dados |
+| MySQL | Banco de dados |
+| JWT | Autenticação |
+| CSS | Estilização |
+| Lucide React | Ícones |
 
----
 
-## 🎨 Protótipo no figma
 
-[Acesse aqui os 2 protótipos (Alta fidelidade e baixa fidelidade)](https://www.figma.com/design/fDcv3rT83pvovyxVrcbGP0/AV2---POO?node-id=0-1&p=f&t=66wKfX2LUmknQu5M-0)
+## 📂 Estrutura do Projeto
 
----
+```text
+AV3-main/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
+│   ├── prisma/
+│   ├── src/
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── README.md
+```
 
-## ⚙️ Como Executar
+
+
+## 🔐 Funcionalidades
+
+### Login e Controle de Acesso
+
+- Autenticação com JWT
+- Controle de permissões por perfil
+- Proteção de rotas
+
+### Dashboard
+
+- Indicadores gerais da produção
+- Estatísticas operacionais
+- Resumo de status das aeronaves
+
+### Aeronaves
+
+- Cadastro
+- Consulta
+- Atualização
+- Exclusão
+
+### Peças
+
+- Controle de componentes
+- Gestão de fornecedores
+- Controle de status
+
+### Testes
+
+- Registro de testes
+- Aprovação e reprovação
+- Histórico de resultados
+
+### Etapas de Produção
+
+- Planejamento
+- Acompanhamento
+- Controle de progresso
+
+### Funcionários
+
+- Gestão de usuários
+- Controle de cargos
+- Controle de permissões
+
+### Relatórios
+
+- Relatórios operacionais
+- Filtros personalizados
+
+### Métricas de Qualidade
+
+- Latência
+- Tempo de Processamento
+- Tempo de Resposta
+
+
+
+## ⚙️ Instalação
 
 ### Pré-requisitos
 
-- [Node.js](https://nodejs.org/) v16 ou superior
-- npm (incluído com o Node.js)
+- Node.js 18+
+- MySQL 8+
+- npm
 
-### Instalação e execução
+
+
+### Backend
 
 ```bash
-# Clone ou extraia o projeto
-cd AV2-POO
+cd backend
 
-# Instale as dependências
 npm install
+```
 
-# Inicie o servidor de desenvolvimento
+Copie o arquivo de exemplo:
+
+```bash
+cp .env.example .env
+```
+
+Configure a conexão com o MySQL:
+
+```env
+DATABASE_URL="mysql://usuario:senha@localhost:3306/aerocode"
+JWT_SECRET_KEY=sua_chave_secreta
+```
+
+Execute as migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Popule o banco:
+
+```bash
+npx prisma db seed
+```
+
+Inicie o servidor:
+
+```bash
+npm run dev
+```
+
+Servidor disponível em:
+
+```text
+http://localhost:3001
+```
+
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
 npm start
 ```
 
-O app abrirá automaticamente em `http://localhost:3000`.
+Aplicação disponível em:
 
----
+```text
+http://localhost:3000
+```
 
-## 🔐 Credenciais de Acesso
 
-O sistema possui três perfis de usuário para teste:
+## 📊 Métricas de Qualidade
 
-| Perfil | E-mail | Senha | Permissões |
-|---|---|---|---|
-| Administrador | admin@aerotech.com | 1234 | Acesso total, incluindo gestão de funcionários |
-| Engenheiro | engenheiro@aerotech.com | 1234 | Dashboard, aeronaves, etapas e relatórios |
-| Operador | operador@aerotech.com | 1234 | Dashboard, aeronaves, etapas e relatórios |
+O sistema possui monitoramento de métricas de desempenho para avaliação da qualidade da aplicação.
 
----
+As medições foram realizadas considerando:
 
-## 🗺️ Funcionalidades
+- 1 usuário simultâneo
+- 5 usuários simultâneos
+- 10 usuários simultâneos
 
-### Dashboard
-Visão consolidada com cards de estatísticas (total de aeronaves, em produção, concluídas, peças cadastradas), tabela de aeronaves recentes e resumo de situação geral (testes reprovados, aguardando, funcionários ativos).
+Métricas avaliadas:
 
-### Aeronaves
-Listagem completa com busca por texto e filtro por status. Permite cadastrar, editar e excluir aeronaves. Cada aeronave possui modelo, matrícula, fabricante, ano, status, progresso e responsável.
+- Latência
+- Tempo de Processamento
+- Tempo de Resposta
 
-### Detalhe da Aeronave
-Acesso às três sub-seções de cada aeronave por abas:
-- **Peças** — cadastro de componentes com código, quantidade, fornecedor e status
-- **Testes** — registro de testes com tipo, resultado, data e observações
-- **Etapas** — linha do tempo de produção com ordem, status e datas
+Todos os resultados são apresentados em milissegundos (ms).
 
-### Etapas de Produção
-Visão global de todas as etapas de todas as aeronaves, com filtro por status e link rápido para o detalhe de cada aeronave.
 
-### Funcionários *(somente admin)*
-Gerenciamento completo de funcionários com cargo, departamento e status (ativo/inativo).
+## 🖥️ Compatibilidade
 
-### Relatórios
-Geração de relatório configurável com filtros por aeronave e status. Permite incluir ou excluir seções de peças, testes e etapas.
+- Windows 10 ou superior
+- Ubuntu 24.04 ou superior
+- Distribuições Linux derivadas do Ubuntu
 
----
 
-## 📄 Contexto Acadêmico
+## 👨‍💻 Autor
 
-Projeto desenvolvido para a disciplina ministrada pelo **Prof. Eng. Dr. Gerson Penha**, como parte da AV2 que propõe a migração do sistema CLI da Aerocode para uma GUI web moderna no formato SPA, utilizando React como framework principal.
+**Gustavo Garcia Gomes**
 
-**Requisitos atendidos:**
-- SPA desenvolvida em React
-- Protótipo navegável sem back-end
-- Dados mockados em memória
-- Controle de acesso por perfil de usuário
-- Compatível com Windows 10+ e Linux Ubuntu 24.04+
+Curso de Análise e Desenvolvimento de Sistemas
+
+Disciplina: Programação Orientada a Objetos
+
+Professor: Eng. Dr. Gerson Penha
+
+Instituição: FATEC São José dos Campos - Prof. Jessen Vidal
