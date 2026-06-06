@@ -20,89 +20,65 @@ enum TipoAeronave {
   MILITAR
 }
 
-enum StatusAeronave {
-  aguardando
-  em_producao
-  concluida
-}
-
 enum TipoPeca {
   NACIONAL
   IMPORTADA
 }
 
 enum StatusPeca {
-  pendente
-  em_teste
-  aprovado
-  reprovado
+  EM_PRODUCAO
+  EM_TRANSPORTE
+  PRONTA
 }
 
 enum StatusEtapa {
-  pendente
-  em_andamento
-  concluida
+  PENDENTE
+  ANDAMENTO
+  CONCLUIDA
 }
 
 enum TipoTeste {
-  motor
-  pressao
-  eletrico
-  estrutural
-  voo
-  hidraulico
-  aerodinamico
+  ELETRICO
+  HIDRAULICO
+  AERODINAMICO
 }
 
 enum ResultadoTeste {
-  pendente
-  aprovado
-  reprovado
+  APROVADO
+  REPROVADO
 }
 
 // ─── MODELS ──────────────────────────────────────────────────────────────────
 
 model Funcionario {
-  id             Int            @id @default(autoincrement())
+  id             String         @id @db.VarChar(50)
   nome           String         @db.VarChar(150)
-  email          String         @unique @db.VarChar(200)
-  telefone       String?        @db.VarChar(30)
-  endereco       String?        @db.VarChar(300)
+  telefone       String         @db.VarChar(30)
+  endereco       String         @db.VarChar(300)
   usuario        String         @unique @db.VarChar(100)
   senha          String         @db.VarChar(255)
-  cargo          String?        @db.VarChar(100)
-  departamento   String?        @db.VarChar(100)
   nivelPermissao NivelPermissao @default(OPERADOR)
-  status         String         @default("ativo") @db.VarChar(20)
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 
-  etapas         EtapaFuncionario[]
-  aeronaves      Aeronave[]     @relation("AeronaveResponsavel")
+  etapas EtapaFuncionario[]
 
   @@map("funcionarios")
 }
 
 model Aeronave {
-  id             Int            @id @default(autoincrement())
-  codigo         String         @unique @db.VarChar(30)
-  modelo         String         @db.VarChar(100)
-  matricula      String         @unique @db.VarChar(30)
-  fabricante     String         @db.VarChar(100)
-  anoFabricacao  Int
-  tipo           TipoAeronave   @default(COMERCIAL)
-  capacidade     Int            @default(0)
-  alcance        Int            @default(0)
-  status         StatusAeronave @default(aguardando)
-  progresso      Int            @default(0)
-  responsavelId  Int?
-  responsavel    Funcionario?   @relation("AeronaveResponsavel", fields: [responsavelId], references: [id])
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id         Int          @id @default(autoincrement())
+  codigo     String       @unique @db.VarChar(30)
+  modelo     String       @db.VarChar(100)
+  tipo       TipoAeronave @default(COMERCIAL)
+  capacidade Int          @default(0)
+  alcance    Int          @default(0)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
-  pecas          Peca[]
-  testes         Teste[]
-  etapas         Etapa[]
+  pecas  Peca[]
+  testes Teste[]
+  etapas Etapa[]
 
   @@map("aeronaves")
 }
@@ -110,11 +86,9 @@ model Aeronave {
 model Peca {
   id         Int        @id @default(autoincrement())
   nome       String     @db.VarChar(150)
-  numero     String     @db.VarChar(50)
-  quantidade Int        @default(1)
   tipo       TipoPeca   @default(NACIONAL)
-  status     StatusPeca @default(pendente)
-  fornecedor String?    @db.VarChar(150)
+  fornecedor String     @db.VarChar(150)
+  status     StatusPeca @default(EM_PRODUCAO)
   aeronaveId Int
   aeronave   Aeronave   @relation(fields: [aeronaveId], references: [id], onDelete: Cascade)
   createdAt  DateTime   @default(now())
@@ -124,19 +98,14 @@ model Peca {
 }
 
 model Etapa {
-  id          Int         @id @default(autoincrement())
-  nome        String      @db.VarChar(150)
-  descricao   String?     @db.Text
-  status      StatusEtapa @default(pendente)
-  ordem       Int         @default(1)
-  prazo       String?     @db.VarChar(20)
-  dataInicio  String?     @db.VarChar(20)
-  dataFim     String?     @db.VarChar(20)
-  responsavel String?     @db.VarChar(150)
-  aeronaveId  Int
-  aeronave    Aeronave    @relation(fields: [aeronaveId], references: [id], onDelete: Cascade)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id         Int         @id @default(autoincrement())
+  nome       String      @db.VarChar(150)
+  prazo      String      @db.VarChar(20)
+  status     StatusEtapa @default(PENDENTE)
+  aeronaveId Int
+  aeronave   Aeronave    @relation(fields: [aeronaveId], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   funcionarios EtapaFuncionario[]
 
@@ -145,7 +114,7 @@ model Etapa {
 
 model EtapaFuncionario {
   etapaId       Int
-  funcionarioId Int
+  funcionarioId String
   etapa         Etapa       @relation(fields: [etapaId], references: [id], onDelete: Cascade)
   funcionario   Funcionario @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
 
@@ -154,17 +123,13 @@ model EtapaFuncionario {
 }
 
 model Teste {
-  id             Int            @id @default(autoincrement())
-  nome           String         @db.VarChar(150)
-  tipo           TipoTeste      @default(eletrico)
-  resultado      ResultadoTeste @default(pendente)
-  dataRealizacao String?        @db.VarChar(20)
-  responsavel    String?        @db.VarChar(150)
-  observacoes    String?        @db.Text
-  aeronaveId     Int
-  aeronave       Aeronave       @relation(fields: [aeronaveId], references: [id], onDelete: Cascade)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id         Int            @id @default(autoincrement())
+  tipo       TipoTeste      @default(ELETRICO)
+  resultado  ResultadoTeste @default(APROVADO)
+  aeronaveId Int
+  aeronave   Aeronave       @relation(fields: [aeronaveId], references: [id], onDelete: Cascade)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
 
   @@map("testes")
 }

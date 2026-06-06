@@ -4,15 +4,12 @@ import jwt from 'jsonwebtoken'
 import prisma from '../prisma/client'
 
 export async function login(req: Request, res: Response) {
-  const { email, senha } = req.body
-  if (!email || !senha) {
-    return res.status(400).json({ error: 'Email e senha são obrigatórios.' })
+  const { usuario, senha } = req.body
+  if (!usuario || !senha) {
+    return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' })
   }
 
-  const func = await prisma.funcionario.findFirst({
-    where: { OR: [{ usuario: email }, { email }] },
-  })
-
+  const func = await prisma.funcionario.findUnique({ where: { usuario } })
   if (!func) {
     return res.status(401).json({ error: 'Usuário ou senha inválidos.' })
   }
@@ -33,10 +30,8 @@ export async function login(req: Request, res: Response) {
     user: {
       id: func.id,
       nome: func.nome,
-      email: func.email,
-      cargo: func.cargo,
+      usuario: func.usuario,
       nivelPermissao: func.nivelPermissao,
-      role: func.nivelPermissao.toLowerCase(),
     },
   })
 }
@@ -44,8 +39,8 @@ export async function login(req: Request, res: Response) {
 export async function me(req: any, res: Response) {
   const func = await prisma.funcionario.findUnique({
     where: { id: req.user.id },
-    select: { id: true, nome: true, email: true, cargo: true, nivelPermissao: true, status: true },
+    select: { id: true, nome: true, usuario: true, nivelPermissao: true },
   })
   if (!func) return res.status(404).json({ error: 'Usuário não encontrado.' })
-  return res.json({ ...func, role: func.nivelPermissao.toLowerCase() })
+  return res.json(func)
 }

@@ -2,13 +2,16 @@ import React from 'react'
 import { useAuth } from '../context/AuthContext'
 import {
   LayoutDashboard, Plane, ClipboardList,
-  Users, FileBarChart2, LogOut, Activity
+  Users, FileBarChart2, LogOut, Activity,
+  Wrench, FlaskConical
 } from 'lucide-react'
 
 const navItems = [
   { id: 'dashboard',   label: 'Dashboard',          icon: LayoutDashboard },
   { id: 'aeronaves',   label: 'Aeronaves',           icon: Plane },
   { id: 'etapas',      label: 'Etapas de Produção',  icon: ClipboardList },
+  { id: 'pecas',       label: 'Peças',               icon: Wrench },
+  { id: 'testes',      label: 'Testes',              icon: FlaskConical },
   { id: 'funcionarios',label: 'Funcionários',         icon: Users },
   { id: 'relatorio',   label: 'Relatórios',           icon: FileBarChart2 },
   { id: 'metricas',    label: 'Métricas Qualidade',   icon: Activity },

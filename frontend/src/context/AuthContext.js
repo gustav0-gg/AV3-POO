@@ -18,9 +18,9 @@ export function AuthProvider({ children }) {
     setLoading(false)
   }, [])
 
-  const login = async (email, senha) => {
+  const login = async (usuario, senha) => {
     try {
-      const data = await authAPI.login(email, senha)
+      const data = await authAPI.login(usuario, senha)
       localStorage.setItem('aerocode_token', data.token)
       localStorage.setItem('aerocode_user', JSON.stringify(data.user))
       setCurrentUser(data.user)
@@ -38,12 +38,13 @@ export function AuthProvider({ children }) {
     setCurrentUser(null)
   }
 
+  const isAuthenticated = !!currentUser
   const isAdmin      = currentUser?.nivelPermissao === 'ADMINISTRADOR'
   const isEngenheiro = ['ADMINISTRADOR','ENGENHEIRO'].includes(currentUser?.nivelPermissao)
   const canSeeEmployees = isAdmin
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout, loginError, isAdmin, isEngenheiro, canSeeEmployees, loading }}>
+    <AuthContext.Provider value={{ currentUser, isAuthenticated, login, logout, loginError, isAdmin, isEngenheiro, canSeeEmployees, loading }}>
       {children}
     </AuthContext.Provider>
   )

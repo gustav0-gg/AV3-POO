@@ -11,9 +11,9 @@ const statusBadge = {
 
 // Determina o prazo/criticidade de uma etapa em andamento
 function etapaCriticidade(etapa) {
-  if (!etapa.dataFim) return { label: 'No prazo', style: { background: '#E0F5EA', color: '#1B5E20' } };
+  if (!etapa.prazo) return { label: 'No prazo', style: { background: '#E0F5EA', color: '#1B5E20' } };
   const hoje = new Date();
-  const fim = new Date(etapa.dataFim + 'T00:00:00');
+  const fim = new Date(etapa.prazo + 'T00:00:00');
   const diff = Math.ceil((fim - hoje) / (1000 * 60 * 60 * 24));
   if (diff < 0) return { label: 'Vencido', style: { background: '#FCE4EC', color: '#B71C1C' } };
   if (diff <= 5) return { label: `Prazo: ${diff}d`, style: { background: '#FFF8E1', color: '#E65100' } };
@@ -25,14 +25,14 @@ export default function Dashboard({ onNavigate }) {
   const { currentUser } = useAuth();
 
   const emProducao    = aeronaves.filter(a => a.status === 'em_producao').length;
-  const etapasAndando = aeronaves.reduce((s, a) => s + a.etapas.filter(e => e.status === 'em_andamento').length, 0);
-  const testesAprov   = aeronaves.reduce((s, a) => s + a.testes.filter(t => t.resultado === 'aprovado').length, 0);
-  const funcAtivos    = funcionarios.filter(f => f.status === 'ativo').length;
+  const etapasAndando = aeronaves.reduce((s, a) => s + a.etapas.filter(e => e.status === 'ANDAMENTO').length, 0);
+  const testesAprov   = aeronaves.reduce((s, a) => s + a.testes.filter(t => t.resultado === 'Aprovado').length, 0);
+  const funcAtivos    = funcionarios.length;
 
   // Etapas críticas (em andamento ou vencidas) — até 3
   const etapasCriticas = aeronaves
     .flatMap(a => a.etapas
-      .filter(e => e.status === 'em_andamento' || (e.dataFim && new Date(e.dataFim + 'T00:00:00') < new Date()))
+      .filter(e => e.status === 'ANDAMENTO' || (e.prazo && new Date(e.prazo + 'T00:00:00') < new Date()))
       .map(e => ({ ...e, aeronave: a }))
     )
     .slice(0, 3);
@@ -146,8 +146,8 @@ export default function Dashboard({ onNavigate }) {
                   const badge = statusBadge[a.status] || { label: a.status, style: {} };
                   const concluidas = a.etapas.filter(e => e.status === 'concluida').length;
                   const total      = a.etapas.length;
-                  const tipo       = a.fabricante?.toLowerCase().includes('boeing') ||
-                                     a.fabricante?.toLowerCase().includes('lockheed') ||
+                  const tipo       = a.tipo === "MILITAR" ||
+                                     
                                      a.modelo?.toLowerCase().includes('f-16') ? 'MILITAR' : 'COMERCIAL';
                   const codigo     = `AV-${String(i + 1).padStart(3, '0')}`;
                   return (

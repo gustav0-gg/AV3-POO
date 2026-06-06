@@ -42,6 +42,8 @@ router.get('/aeronaves/:id/etapas', authMiddleware, A.listarEtapas)
 router.post('/aeronaves/:id/etapas', authMiddleware, requireEngenheiro, A.criarEtapa)
 router.put('/aeronaves/:id/etapas/:etapaId', authMiddleware, requireEngenheiro, A.atualizarEtapa)
 router.delete('/aeronaves/:id/etapas/:etapaId', authMiddleware, requireAdmin, A.deletarEtapa)
+router.post('/aeronaves/:id/etapas/:etapaId/funcionarios', authMiddleware, requireEngenheiro, A.associarFuncionarioEtapa)
+router.delete('/aeronaves/:id/etapas/:etapaId/funcionarios/:funcionarioId', authMiddleware, requireEngenheiro, A.desassociarFuncionarioEtapa)
 
 // ── Métricas de qualidade ─────────────────────────────────────────────────────
 router.get('/metrics', authMiddleware, M.getMetrics)

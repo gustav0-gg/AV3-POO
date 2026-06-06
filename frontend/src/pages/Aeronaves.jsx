@@ -3,66 +3,49 @@ import { useApp } from '../context/AppContext';
 import { Modal, ConfirmDialog } from '../components/Modal';
 import { Plus, Search, Pencil, Trash2, Eye } from 'lucide-react';
 
-const statusOpts = [
-  { value: 'aguardando', label: 'Aguardando' },
-  { value: 'em_producao', label: 'Em Produção' },
-  { value: 'concluida', label: 'Concluída' },
+const tipoOpts = [
+  { value: 'COMERCIAL', label: 'Comercial' },
+  { value: 'MILITAR',   label: 'Militar' },
 ];
 
-const statusBadge = {
-  em_producao: 'badge-blue',
-  concluida: 'badge-green',
-  aguardando: 'badge-amber',
-};
-
-const statusLabel = {
-  em_producao: 'Em Produção',
-  concluida: 'Concluída',
-  aguardando: 'Aguardando',
-};
+const tipoBadge = { COMERCIAL: 'badge-blue', MILITAR: 'badge-amber' };
+const tipoLabel = { COMERCIAL: 'Comercial', MILITAR: 'Militar' };
 
 function AeronaveModal({ aeronave, onClose, onSave }) {
   const isEdit = !!aeronave?.id;
   const [form, setForm] = useState({
-    modelo: aeronave?.modelo || '',
-    matricula: aeronave?.matricula || '',
-    fabricante: aeronave?.fabricante || '',
-    anoFabricacao: aeronave?.anoFabricacao || new Date().getFullYear(),
-    status: aeronave?.status || 'aguardando',
-    progresso: aeronave?.progresso || 0,
-    responsavel: aeronave?.responsavel?.nome || aeronave?.responsavel || '',
+    codigo:    aeronave?.codigo    || '',
+    modelo:    aeronave?.modelo    || '',
+    tipo:      aeronave?.tipo      || 'COMERCIAL',
+    capacidade: aeronave?.capacidade || '',
+    alcance:   aeronave?.alcance   || '',
   });
   const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const e = {};
-    if (!form.modelo.trim()) e.modelo = 'Informe o modelo.';
-    if (!form.matricula.trim()) e.matricula = 'Informe a matrícula.';
-    if (!form.fabricante.trim()) e.fabricante = 'Informe o fabricante.';
-    return e;
-  };
+  const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); };
 
   const handleSubmit = () => {
-    const e = validate();
+    const e = {};
+    if (!isEdit && !form.codigo.trim()) e.codigo = 'Informe o código.';
+    if (!form.modelo.trim())  e.modelo  = 'Informe o modelo.';
+    if (!form.capacidade)     e.capacidade = 'Informe a capacidade.';
+    if (!form.alcance)        e.alcance = 'Informe o alcance.';
     if (Object.keys(e).length) { setErrors(e); return; }
     onSave(form);
   };
 
-  const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); };
-
   return (
-    <Modal
-      title={isEdit ? 'Editar Aeronave' : 'Cadastrar Aeronave'}
-      onClose={onClose}
-      footer={
-        <>
-          <button className="btn btn-ghost" onClick={onClose}>Cancelar</button>
-          <button className="btn btn-primary" onClick={handleSubmit}>
-            {isEdit ? 'Salvar Alterações' : 'Cadastrar'}
-          </button>
-        </>
-      }
-    >
+    <Modal title={isEdit ? 'Editar Aeronave' : 'Cadastrar Aeronave'} onClose={onClose}
+      footer={<><button className="btn btn-ghost" onClick={onClose}>Cancelar</button><button className="btn btn-primary" onClick={handleSubmit}>{isEdit ? 'Salvar Alterações' : 'Cadastrar'}</button></>}>
+
+      {!isEdit && (
+        <div className="form-group">
+          <label className="form-label">Código *</label>
+          <input className={`form-input${errors.codigo ? ' input-error' : ''}`} value={form.codigo}
+            onChange={e => set('codigo', e.target.value)} placeholder="Ex: E175-001" />
+          {errors.codigo && <span className="form-error">{errors.codigo}</span>}
+        </div>
+      )}
+
       <div className="grid-2">
         <div className="form-group">
           <label className="form-label">Modelo *</label>
@@ -71,45 +54,26 @@ function AeronaveModal({ aeronave, onClose, onSave }) {
           {errors.modelo && <span className="form-error">{errors.modelo}</span>}
         </div>
         <div className="form-group">
-          <label className="form-label">Matrícula *</label>
-          <input className={`form-input${errors.matricula ? ' input-error' : ''}`} value={form.matricula}
-            onChange={e => set('matricula', e.target.value.toUpperCase())} placeholder="Ex: PR-AER" />
-          {errors.matricula && <span className="form-error">{errors.matricula}</span>}
-        </div>
-      </div>
-
-      <div className="grid-2">
-        <div className="form-group">
-          <label className="form-label">Fabricante *</label>
-          <input className={`form-input${errors.fabricante ? ' input-error' : ''}`} value={form.fabricante}
-            onChange={e => set('fabricante', e.target.value)} placeholder="Ex: Embraer" />
-          {errors.fabricante && <span className="form-error">{errors.fabricante}</span>}
-        </div>
-        <div className="form-group">
-          <label className="form-label">Ano de Fabricação</label>
-          <input className="form-input" type="number" value={form.anoFabricacao}
-            onChange={e => set('anoFabricacao', parseInt(e.target.value))} min="1900" max="2100" />
-        </div>
-      </div>
-
-      <div className="grid-2">
-        <div className="form-group">
-          <label className="form-label">Status</label>
-          <select className="form-select" value={form.status} onChange={e => set('status', e.target.value)}>
-            {statusOpts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+          <label className="form-label">Tipo</label>
+          <select className="form-select" value={form.tipo} onChange={e => set('tipo', e.target.value)}>
+            {tipoOpts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
         </div>
-        <div className="form-group">
-          <label className="form-label">Progresso (%)</label>
-          <input className="form-input" type="number" value={form.progresso}
-            onChange={e => set('progresso', Math.min(100, Math.max(0, parseInt(e.target.value) || 0)))} min="0" max="100" />
-        </div>
       </div>
 
-      <div className="form-group">
-        <label className="form-label">Responsável</label>
-        <input className="form-input" value={form.responsavel}
-          onChange={e => set('responsavel', e.target.value)} placeholder="Nome do responsável" />
+      <div className="grid-2">
+        <div className="form-group">
+          <label className="form-label">Capacidade (passageiros) *</label>
+          <input className={`form-input${errors.capacidade ? ' input-error' : ''}`} type="number" value={form.capacidade}
+            onChange={e => set('capacidade', e.target.value)} placeholder="Ex: 180" min="1" />
+          {errors.capacidade && <span className="form-error">{errors.capacidade}</span>}
+        </div>
+        <div className="form-group">
+          <label className="form-label">Alcance (km) *</label>
+          <input className={`form-input${errors.alcance ? ' input-error' : ''}`} type="number" value={form.alcance}
+            onChange={e => set('alcance', e.target.value)} placeholder="Ex: 5000" min="1" />
+          {errors.alcance && <span className="form-error">{errors.alcance}</span>}
+        </div>
       </div>
     </Modal>
   );
@@ -117,32 +81,25 @@ function AeronaveModal({ aeronave, onClose, onSave }) {
 
 export default function Aeronaves({ onViewDetail }) {
   const { aeronaves, addAeronave, updateAeronave, deleteAeronave } = useApp();
-  const [search, setSearch] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [search, setSearch]       = useState('');
+  const [filterTipo, setFilterTipo] = useState('all');
   const [modalOpen, setModalOpen] = useState(false);
-  const [editItem, setEditItem] = useState(null);
+  const [editItem, setEditItem]   = useState(null);
   const [deleteItem, setDeleteItem] = useState(null);
 
   const filtered = aeronaves.filter(a => {
     const matchSearch = a.modelo.toLowerCase().includes(search.toLowerCase()) ||
-      a.matricula.toLowerCase().includes(search.toLowerCase()) ||
-      a.fabricante.toLowerCase().includes(search.toLowerCase());
-    const matchStatus = filterStatus === 'all' || a.status === filterStatus;
-    return matchSearch && matchStatus;
+      a.codigo.toLowerCase().includes(search.toLowerCase());
+    const matchTipo = filterTipo === 'all' || a.tipo === filterTipo;
+    return matchSearch && matchTipo;
   });
 
   const handleSave = (data) => {
-    if (editItem?.id) {
-      updateAeronave(editItem.id, data);
-    } else {
-      addAeronave(data);
-    }
+    if (editItem?.id) updateAeronave(editItem.id, data);
+    else addAeronave(data);
     setModalOpen(false);
     setEditItem(null);
   };
-
-  const openEdit = (a) => { setEditItem(a); setModalOpen(true); };
-  const openNew = () => { setEditItem(null); setModalOpen(true); };
 
   return (
     <div className="page-wrapper">
@@ -151,23 +108,20 @@ export default function Aeronaves({ onViewDetail }) {
           <h1 className="page-title">Aeronaves</h1>
           <p className="page-subtitle">{aeronaves.length} aeronave(s) cadastrada(s)</p>
         </div>
-        <button className="btn btn-primary" onClick={openNew}>
+        <button className="btn btn-primary" onClick={() => { setEditItem(null); setModalOpen(true); }}>
           <Plus size={16} /> Nova Aeronave
         </button>
       </div>
 
-      {/* Filters */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center' }}>
         <div className="search-wrap">
           <Search size={16} className="search-icon" />
-          <input className="search-input" placeholder="Buscar aeronave..." value={search}
+          <input className="search-input" placeholder="Buscar por código ou modelo..." value={search}
             onChange={e => setSearch(e.target.value)} />
         </div>
-        <button className={`chip${filterStatus === 'all' ? ' active' : ''}`} onClick={() => setFilterStatus('all')}>Todas</button>
-        {statusOpts.map(o => (
-          <button key={o.value} className={`chip${filterStatus === o.value ? ' active' : ''}`}
-            onClick={() => setFilterStatus(o.value)}>{o.label}</button>
-        ))}
+        <button className={`chip${filterTipo === 'all' ? ' active' : ''}`} onClick={() => setFilterTipo('all')}>Todas</button>
+        <button className={`chip${filterTipo === 'COMERCIAL' ? ' active' : ''}`} onClick={() => setFilterTipo('COMERCIAL')}>Comercial</button>
+        <button className={`chip${filterTipo === 'MILITAR' ? ' active' : ''}`} onClick={() => setFilterTipo('MILITAR')}>Militar</button>
       </div>
 
       <div className="card" style={{ padding: 0 }}>
@@ -175,54 +129,25 @@ export default function Aeronaves({ onViewDetail }) {
           <table>
             <thead>
               <tr>
-                <th>Modelo</th>
-                <th>Matrícula</th>
-                <th>Fabricante</th>
-                <th>Ano</th>
-                <th>Status</th>
-                <th>Progresso</th>
-                <th>Responsável</th>
-                <th>Ações</th>
+                <th>Código</th><th>Modelo</th><th>Tipo</th>
+                <th>Capacidade</th><th>Alcance</th><th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan="8" style={{ textAlign: 'center', padding: 40, color: 'var(--gray-400)' }}>
-                    Nenhuma aeronave encontrada.
-                  </td>
-                </tr>
+                <tr><td colSpan="6" style={{ textAlign: 'center', padding: 40, color: 'var(--gray-400)' }}>Nenhuma aeronave encontrada.</td></tr>
               ) : filtered.map(a => (
                 <tr key={a.id}>
+                  <td style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 600, color: 'var(--navy-700)' }}>{a.codigo}</td>
                   <td style={{ fontWeight: 600, color: 'var(--navy-800)' }}>{a.modelo}</td>
-                  <td style={{ fontFamily: 'monospace', fontSize: 13 }}>{a.matricula}</td>
-                  <td>{a.fabricante}</td>
-                  <td>{a.anoFabricacao}</td>
-                  <td>
-                    <span className={`badge ${statusBadge[a.status] || 'badge-gray'}`}>
-                      {statusLabel[a.status] || a.status}
-                    </span>
-                  </td>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div className="progress-bar" style={{ width: 70 }}>
-                        <div className="progress-fill" style={{ width: `${a.progresso}%` }} />
-                      </div>
-                      <span style={{ fontSize: 12, color: 'var(--gray-500)' }}>{a.progresso}%</span>
-                    </div>
-                  </td>
-                  <td style={{ color: 'var(--gray-500)', fontSize: 13 }}>{a.responsavel?.nome || '—'}</td>
+                  <td><span className={`badge ${tipoBadge[a.tipo] || 'badge-gray'}`}>{tipoLabel[a.tipo] || a.tipo}</span></td>
+                  <td>{a.capacidade} pax</td>
+                  <td>{a.alcance} km</td>
                   <td>
                     <div style={{ display: 'flex', gap: 6 }}>
-                      <button className="btn-icon" title="Ver detalhes" onClick={() => onViewDetail(a.id)}>
-                        <Eye size={15} />
-                      </button>
-                      <button className="btn-icon" title="Editar" onClick={() => openEdit(a)}>
-                        <Pencil size={15} />
-                      </button>
-                      <button className="btn-icon danger" title="Excluir" onClick={() => setDeleteItem(a)}>
-                        <Trash2 size={15} />
-                      </button>
+                      <button className="btn-icon" title="Ver detalhes" onClick={() => onViewDetail(a.id)}><Eye size={15} /></button>
+                      <button className="btn-icon" title="Editar" onClick={() => { setEditItem(a); setModalOpen(true); }}><Pencil size={15} /></button>
+                      <button className="btn-icon danger" title="Excluir" onClick={() => setDeleteItem(a)}><Trash2 size={15} /></button>
                     </div>
                   </td>
                 </tr>
@@ -233,20 +158,15 @@ export default function Aeronaves({ onViewDetail }) {
       </div>
 
       {modalOpen && (
-        <AeronaveModal
-          aeronave={editItem}
+        <AeronaveModal aeronave={editItem}
           onClose={() => { setModalOpen(false); setEditItem(null); }}
-          onSave={handleSave}
-        />
+          onSave={handleSave} />
       )}
-
       {deleteItem && (
-        <ConfirmDialog
-          title="Excluir Aeronave"
-          message={`Tem certeza que deseja excluir a aeronave "${deleteItem.modelo} (${deleteItem.matricula})"? Esta ação não pode ser desfeita.`}
+        <ConfirmDialog title="Excluir Aeronave"
+          message={`Tem certeza que deseja excluir a aeronave "${deleteItem.modelo} (${deleteItem.codigo})"?`}
           onConfirm={() => { deleteAeronave(deleteItem.id); setDeleteItem(null); }}
-          onCancel={() => setDeleteItem(null)}
-        />
+          onCancel={() => setDeleteItem(null)} />
       )}
     </div>
   );

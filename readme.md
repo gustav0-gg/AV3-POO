@@ -175,7 +175,7 @@ JWT_SECRET_KEY=sua_chave_secreta
 Execute as migrations:
 
 ```bash
-npx prisma migrate dev
+npx prisma migrate deploy
 ```
 
 Popule o banco:

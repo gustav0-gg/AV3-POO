@@ -6,45 +6,35 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Aeronaves from './pages/Aeronaves'
 import AeronaveDetalhe from './pages/Aeronavedetalhe'
-import EtapasProducao from './pages/Etapasproducao'
+import Etapas from './pages/Etapasproducao'
+import Pecas from './pages/Pecas'
+import Testes from './pages/Testes'
 import Funcionarios from './pages/Funcionarios'
 import Relatorio from './pages/Relatorio'
 import MetricasQualidade from './pages/MetricasQualidade'
 import './style/index.css'
 
 function AppContent() {
-  const { currentUser, loading } = useAuth()
+  const { isAuthenticated } = useAuth()
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [selectedAeronaveId, setSelectedAeronaveId] = useState(null)
 
-  if (loading) {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--lavender-100)' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, color: 'var(--navy-800)' }}>Carregando...</div>
-        </div>
-      </div>
-    )
-  }
-
-  if (!currentUser) return <Login />
+  if (!isAuthenticated) return <Login />
 
   const handleViewDetail = (id) => {
     setSelectedAeronaveId(id)
     setCurrentPage('aeronave-detalhe')
   }
-
-  const handleBack = () => {
-    setSelectedAeronaveId(null)
-    setCurrentPage('aeronaves')
-  }
+  const handleBack = () => setCurrentPage('aeronaves')
 
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':        return <Dashboard onNavigate={setCurrentPage} />
       case 'aeronaves':        return <Aeronaves onViewDetail={handleViewDetail} />
       case 'aeronave-detalhe': return <AeronaveDetalhe aeronaveId={selectedAeronaveId} onBack={handleBack} />
-      case 'etapas':           return <EtapasProducao onViewAeronave={handleViewDetail} />
+      case 'etapas':           return <Etapas />
+      case 'pecas':            return <Pecas />
+      case 'testes':           return <Testes />
       case 'funcionarios':     return <Funcionarios />
       case 'relatorio':        return <Relatorio />
       case 'metricas':         return <MetricasQualidade />
@@ -53,9 +43,9 @@ function AppContent() {
   }
 
   return (
-    <div className="app-layout">
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
       <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main className="main-content">
+      <main style={{ flex: 1, overflow: 'auto', marginLeft: '220px' }}>
         {renderPage()}
       </main>
     </div>

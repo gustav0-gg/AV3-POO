@@ -29,7 +29,7 @@ function pad(n) { return String(n).padStart(4, '0'); }
 // ─── GERA TEXTO DO RELATÓRIO ──────────────────────────────────────────────────
 function gerarTextoRelatorio(aeronave, idx, cliente, dataEntrega) {
   const codigo = `AV-${String(idx + 1).padStart(3, '0')}`;
-  const tipo   = aeronave.fabricante?.toLowerCase().includes('boeing') ||
+  const tipo   = aeronave.tipo === "MILITAR" ||
                  aeronave.modelo?.toLowerCase().includes('f-16') ? 'MILITAR' : 'COMERCIAL';
 
   const etapasConcluidas = aeronave.etapas.filter(e => e.status === 'concluida').length;
@@ -81,9 +81,9 @@ function gerarTextoRelatorio(aeronave, idx, cliente, dataEntrega) {
   } else {
     aeronave.testes.forEach(t => {
       const res = t.resultado === 'aprovado' ? 'Aprovado' : t.resultado === 'reprovado' ? 'Reprovado' : 'Pendente';
-      const data = t.dataRealizacao ? new Date(t.dataRealizacao + 'T00:00:00').toLocaleDateString('pt-BR') : '—';
+      const data = 
       txt += dots(`${t.nome} (${tipoLabel[t.tipo] || t.tipo})`, `${res} — ${data}`) + '\n';
-      if (t.observacoes) txt += `   Obs: ${t.observacoes}\n`;
+      
     });
   }
 
@@ -96,7 +96,7 @@ function gerarTextoRelatorio(aeronave, idx, cliente, dataEntrega) {
   } else {
     aeronave.pecas.forEach(p => {
       const status = pecaStatusLabel[p.status] || p.status;
-      txt += dots(`${p.nome} [${p.numero || '—'}] Qtd:${p.quantidade}`, status) + '\n';
+      txt += dots(`${p.nome} [${p.fornecedor}`, status) + '\n';
       if (p.fornecedor) txt += `   Fornecedor: ${p.fornecedor}\n`;
     });
   }
@@ -113,7 +113,7 @@ function PreviewRelatorio({ aeronave, idx, cliente, dataEntrega }) {
   if (!aeronave) return null;
 
   const codigo = `AV-${String(idx + 1).padStart(3, '0')}`;
-  const tipo   = aeronave.fabricante?.toLowerCase().includes('boeing') ||
+  const tipo   = aeronave.tipo === "MILITAR" ||
                  aeronave.modelo?.toLowerCase().includes('f-16') ? 'MILITAR' : 'COMERCIAL';
 
   const etapasConcluidas = aeronave.etapas.filter(e => e.status === 'concluida').length;

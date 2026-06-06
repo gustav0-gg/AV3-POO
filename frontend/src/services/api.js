@@ -1,4 +1,3 @@
-// ─── Configuração base ────────────────────────────────────────────────────────
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api'
 
 function getToken() {
@@ -32,13 +31,13 @@ const api = {
   delete: (path, uc) => request('DELETE', path, null, uc),
 }
 
-// ─── Auth ─────────────────────────────────────────────────────────────────────
+// ── Auth ──────────────────────────────────────────────────────────────────────
 export const authAPI = {
-  login: (email, senha) => api.post('/auth/login', { email, senha }),
+  login: (usuario, senha) => api.post('/auth/login', { usuario, senha }),
   me: () => api.get('/auth/me'),
 }
 
-// ─── Funcionários ─────────────────────────────────────────────────────────────
+// ── Funcionários ──────────────────────────────────────────────────────────────
 export const funcionariosAPI = {
   listar:    () => api.get('/funcionarios'),
   buscar:    (id) => api.get(`/funcionarios/${id}`),
@@ -47,7 +46,7 @@ export const funcionariosAPI = {
   deletar:   (id) => api.delete(`/funcionarios/${id}`),
 }
 
-// ─── Aeronaves ────────────────────────────────────────────────────────────────
+// ── Aeronaves ─────────────────────────────────────────────────────────────────
 export const aeronavesAPI = {
   listar:    () => api.get('/aeronaves'),
   buscar:    (id) => api.get(`/aeronaves/${id}`),
@@ -56,7 +55,7 @@ export const aeronavesAPI = {
   deletar:   (id) => api.delete(`/aeronaves/${id}`),
 }
 
-// ─── Peças ────────────────────────────────────────────────────────────────────
+// ── Peças ─────────────────────────────────────────────────────────────────────
 export const pecasAPI = {
   listar:    (aeronaveId) => api.get(`/aeronaves/${aeronaveId}/pecas`),
   criar:     (aeronaveId, data) => api.post(`/aeronaves/${aeronaveId}/pecas`, data),
@@ -64,7 +63,7 @@ export const pecasAPI = {
   deletar:   (aeronaveId, pecaId) => api.delete(`/aeronaves/${aeronaveId}/pecas/${pecaId}`),
 }
 
-// ─── Testes ───────────────────────────────────────────────────────────────────
+// ── Testes ────────────────────────────────────────────────────────────────────
 export const testesAPI = {
   listar:    (aeronaveId) => api.get(`/aeronaves/${aeronaveId}/testes`),
   criar:     (aeronaveId, data) => api.post(`/aeronaves/${aeronaveId}/testes`, data),
@@ -72,17 +71,21 @@ export const testesAPI = {
   deletar:   (aeronaveId, testeId) => api.delete(`/aeronaves/${aeronaveId}/testes/${testeId}`),
 }
 
-// ─── Etapas ───────────────────────────────────────────────────────────────────
+// ── Etapas ────────────────────────────────────────────────────────────────────
 export const etapasAPI = {
   listar:    (aeronaveId) => api.get(`/aeronaves/${aeronaveId}/etapas`),
   criar:     (aeronaveId, data) => api.post(`/aeronaves/${aeronaveId}/etapas`, data),
   atualizar: (aeronaveId, etapaId, data) => api.put(`/aeronaves/${aeronaveId}/etapas/${etapaId}`, data),
   deletar:   (aeronaveId, etapaId) => api.delete(`/aeronaves/${aeronaveId}/etapas/${etapaId}`),
+  associarFuncionario:    (aeronaveId, etapaId, funcionarioId) =>
+    api.post(`/aeronaves/${aeronaveId}/etapas/${etapaId}/funcionarios`, { funcionarioId }),
+  desassociarFuncionario: (aeronaveId, etapaId, funcionarioId) =>
+    api.delete(`/aeronaves/${aeronaveId}/etapas/${etapaId}/funcionarios/${funcionarioId}`),
 }
 
-// ─── Métricas ─────────────────────────────────────────────────────────────────
+// ── Métricas ──────────────────────────────────────────────────────────────────
 export const metricsAPI = {
-  buscar: () => api.get('/metrics'),
+  buscar:  () => api.get('/metrics'),
   simular: (userCount, requests) => api.post('/metrics/simulate', { userCount, requests }),
   resetar: () => api.delete('/metrics'),
 }
