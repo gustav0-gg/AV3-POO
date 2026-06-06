@@ -212,6 +212,16 @@ Aplicação disponível em:
 http://localhost:3000
 ```
 
+## 🔐 Credenciais de Acesso
+
+O sistema possui três perfis de usuário para teste:
+
+| Perfil | E-mail | Senha | Permissões |
+|---|---|---|---|
+| Administrador | admin | admin1234 | Acesso total, incluindo gestão de funcionários |
+| Engenheiro | ana | 1234 | Dashboard, aeronaves, etapas e relatórios |
+| Operador | roberto | 1234 | Dashboard, aeronaves, etapas e relatórios |
+
 
 ## 📊 Métricas de Qualidade
 

@@ -26,7 +26,7 @@ export default function Dashboard({ onNavigate }) {
 
   const emProducao    = aeronaves.filter(a => a.status === 'em_producao').length;
   const etapasAndando = aeronaves.reduce((s, a) => s + a.etapas.filter(e => e.status === 'ANDAMENTO').length, 0);
-  const testesAprov   = aeronaves.reduce((s, a) => s + a.testes.filter(t => t.resultado === 'Aprovado').length, 0);
+  const testesAprov   = aeronaves.reduce((s, a) => s + a.testes.filter(t => t.resultado === 'APROVADO').length, 0);
   const funcAtivos    = funcionarios.length;
 
   // Etapas críticas (em andamento ou vencidas) — até 3
@@ -52,7 +52,7 @@ export default function Dashboard({ onNavigate }) {
   const stats = [
     { label: 'Aeronaves cadastradas', value: aeronaves.length,  color: '#E8EAF6' },
     { label: 'Etapas em andamento',   value: etapasAndando,    color: '#FFF8E1' },
-    { label: 'Testes aprovados (mês)', value: testesAprov,     color: '#E0F5EA' },
+    { label: 'Testes aprovados', value: testesAprov,     color: '#E0F5EA' },
     { label: 'Funcionários ativos',   value: funcAtivos,       color: '#EDE7F6' },
   ];
 

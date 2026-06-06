@@ -15,9 +15,11 @@ import MetricasQualidade from './pages/MetricasQualidade'
 import './style/index.css'
 
 function AppContent() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, loading } = useAuth()
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [selectedAeronaveId, setSelectedAeronaveId] = useState(null)
+
+  if (loading) return null
 
   if (!isAuthenticated) return <Login />
 

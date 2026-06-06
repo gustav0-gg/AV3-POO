@@ -40,6 +40,15 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'REPROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Projeto e Design', prazo: '2024-01-30', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação de Componentes', prazo: '2024-04-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Montagem da Estrutura', prazo: '2024-06-30', status: 'ANDAMENTO' as const, funcs: ['0001', '0002'] },
+        { nome: 'Instalação de Sistemas Elétricos', prazo: '2024-09-10', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Testes em Solo', prazo: '2024-11-20', status: 'PENDENTE' as const, funcs: ['0001', '0002', '0003'] },
+        { nome: 'Pintura e Acabamento', prazo: '2025-01-15', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Inspeção Final', prazo: '2025-02-28', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'E195-002', modelo: 'Embraer E195-E2', tipo: 'COMERCIAL' as const, capacidade: 146, alcance: 4800,
@@ -51,6 +60,14 @@ async function main() {
       testes: [
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Projeto Conceitual', prazo: '2023-08-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Projeto Detalhado', prazo: '2023-12-20', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação da Fuselagem', prazo: '2024-05-10', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração de Motores', prazo: '2024-08-30', status: 'ANDAMENTO' as const, funcs: ['0001', '0003'] },
+        { nome: 'Sistemas de Aviónica', prazo: '2024-11-15', status: 'PENDENTE' as const, funcs: ['0002'] },
+        { nome: 'Testes de Pressurização', prazo: '2025-01-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
       ],
     },
     {
@@ -66,6 +83,15 @@ async function main() {
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Requisitos Militares', prazo: '2022-06-01', status: 'CONCLUIDA' as const, funcs: ['0001'] },
+        { nome: 'Projeto e Homologação', prazo: '2023-02-28', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Fabricação de Estrutura', prazo: '2023-09-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Sistema de Carga', prazo: '2023-12-30', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Integração Sistemas de Defesa', prazo: '2024-04-20', status: 'CONCLUIDA' as const, funcs: ['0001'] },
+        { nome: 'Testes Militares Certificados', prazo: '2024-07-01', status: 'ANDAMENTO' as const, funcs: ['0001', '0002'] },
+        { nome: 'Entrega à FAB', prazo: '2024-10-30', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'B737-004', modelo: 'Boeing 737 MAX 8', tipo: 'COMERCIAL' as const, capacidade: 178, alcance: 6570,
@@ -78,6 +104,14 @@ async function main() {
       testes: [
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Recertificação MCAS', prazo: '2023-03-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Revisão de Software de Voo', prazo: '2023-07-15', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Montagem Fuselagem', prazo: '2023-11-30', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação de Motores', prazo: '2024-02-20', status: 'ANDAMENTO' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes de Voo FAA', prazo: '2024-07-10', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação Final', prazo: '2024-09-30', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -93,6 +127,14 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'REPROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Recepção de Componentes', prazo: '2023-05-10', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Montagem da Cabine', prazo: '2023-09-20', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Instalação Fly-by-Wire', prazo: '2024-01-15', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Correção de Falha Aerodinâmica', prazo: '2024-05-30', status: 'ANDAMENTO' as const, funcs: ['0001', '0002'] },
+        { nome: 'Novo Teste Aerodinâmico', prazo: '2024-08-20', status: 'PENDENTE' as const, funcs: ['0001', '0002', '0003'] },
+        { nome: 'Aprovação ANAC', prazo: '2024-11-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'A350-006', modelo: 'Airbus A350-900', tipo: 'COMERCIAL' as const, capacidade: 314, alcance: 15000,
@@ -104,6 +146,14 @@ async function main() {
       testes: [
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Design Estrutural CFRP', prazo: '2022-11-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Fuselagem', prazo: '2023-06-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração de Motores Trent', prazo: '2023-10-30', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Cabine Premium e IFE', prazo: '2024-03-20', status: 'ANDAMENTO' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes Long-Haul', prazo: '2024-08-10', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação EASA', prazo: '2024-12-01', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -119,6 +169,14 @@ async function main() {
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Adaptações para FAB', prazo: '2022-09-01', status: 'CONCLUIDA' as const, funcs: ['0001'] },
+        { nome: 'Integração Radar AESA', prazo: '2023-03-15', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Software de Combate Nacional', prazo: '2023-08-20', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Armamento e Integração A-Darter', prazo: '2023-12-10', status: 'CONCLUIDA' as const, funcs: ['0001', '0003'] },
+        { nome: 'Testes de Combate Simulado', prazo: '2024-04-01', status: 'ANDAMENTO' as const, funcs: ['0001'] },
+        { nome: 'Qualificação Operacional FAB', prazo: '2024-09-15', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+      ],
     },
     {
       codigo: 'B787-008', modelo: 'Boeing 787-9 Dreamliner', tipo: 'COMERCIAL' as const, capacidade: 296, alcance: 14140,
@@ -132,6 +190,14 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Fabricação Asa MHI', prazo: '2023-04-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Montagem Fuselagem em Seções', prazo: '2023-08-15', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Instalação Janelas Eletrocrômicas', prazo: '2024-01-20', status: 'ANDAMENTO' as const, funcs: ['0002'] },
+        { nome: 'Instalação de Cabine', prazo: '2024-05-10', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Testes de Voo Longo Alcance', prazo: '2024-09-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Entrega à Companhia Aérea', prazo: '2025-01-15', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'CES-XLS-009', modelo: 'Cessna Citation XLS+', tipo: 'COMERCIAL' as const, capacidade: 9, alcance: 3700,
@@ -144,6 +210,13 @@ async function main() {
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Montagem da Estrutura', prazo: '2023-07-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Garmin G5000', prazo: '2023-10-15', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Aguardando Trem de Pouso', prazo: '2024-03-10', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Integração Final', prazo: '2024-06-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação FAA Part 25', prazo: '2024-09-20', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'LR45-010', modelo: 'Learjet 45XR', tipo: 'COMERCIAL' as const, capacidade: 9, alcance: 3852,
@@ -154,6 +227,13 @@ async function main() {
       testes: [
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'REPROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Revisão Sistema Elétrico', prazo: '2024-02-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Substituição Componentes Elétricos', prazo: '2024-04-15', status: 'ANDAMENTO' as const, funcs: ['0002', '0003'] },
+        { nome: 'Fabricação Sistema Anti-Gelo', prazo: '2024-07-20', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Novo Teste Elétrico', prazo: '2024-09-10', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Inspeção de Aeronavegabilidade', prazo: '2024-11-30', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -169,6 +249,14 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Design Cabine VIP', prazo: '2023-05-20', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Estrutura', prazo: '2023-09-10', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Motores BR725', prazo: '2023-12-20', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Personalização Interior', prazo: '2024-04-05', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Instalação PlaneView II', prazo: '2024-07-15', status: 'PENDENTE' as const, funcs: ['0002'] },
+        { nome: 'Testes e Entrega Cliente', prazo: '2024-10-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+      ],
     },
     {
       codigo: 'ATR72-012', modelo: 'ATR 72-600', tipo: 'COMERCIAL' as const, capacidade: 70, alcance: 1528,
@@ -181,6 +269,13 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Fabricação Asa CFRP', prazo: '2024-03-01', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Montagem Fuselagem', prazo: '2024-06-15', status: 'PENDENTE' as const, funcs: ['0002', '0003'] },
+        { nome: 'Instalação de Turbohélices', prazo: '2024-09-01', status: 'PENDENTE' as const, funcs: ['0002'] },
+        { nome: 'Aviónica e Sistemas', prazo: '2024-11-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Testes de Voo Regional', prazo: '2025-02-10', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'PC12-013', modelo: 'Pilatus PC-12 NGX', tipo: 'COMERCIAL' as const, capacidade: 9, alcance: 3417,
@@ -192,6 +287,13 @@ async function main() {
       testes: [
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Montagem Estrutural', prazo: '2023-11-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Turbohélice PT6A', prazo: '2024-01-20', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Recepção Avionics Apex', prazo: '2024-04-10', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Integração e Calibração', prazo: '2024-06-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação EASA CS-23', prazo: '2024-09-15', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -207,6 +309,14 @@ async function main() {
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'REPROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Requisito FAB Patrulha', prazo: '2023-02-01', status: 'CONCLUIDA' as const, funcs: ['0001'] },
+        { nome: 'Fabricação Fuselagem', prazo: '2023-07-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração Guerra Eletrônica', prazo: '2024-01-10', status: 'ANDAMENTO' as const, funcs: ['0001', '0002'] },
+        { nome: 'Correção Sistema Elétrico', prazo: '2024-05-20', status: 'PENDENTE' as const, funcs: ['0002', '0003'] },
+        { nome: 'Novos Testes Elétricos', prazo: '2024-08-15', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Homologação Militar', prazo: '2024-12-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'P3C-015', modelo: 'Super Tucano A-29B', tipo: 'MILITAR' as const, capacidade: 2, alcance: 1330,
@@ -219,6 +329,13 @@ async function main() {
       testes: [
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Fabricação Nacional Fuselagem', prazo: '2023-04-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação FLIR e Armamento', prazo: '2023-08-20', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Aguardando Ejetor Martin Baker', prazo: '2024-02-15', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Testes de Missão CAS', prazo: '2024-06-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+        { nome: 'Entrega ao Esquadrão', prazo: '2024-08-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
       ],
     },
     {
@@ -233,6 +350,14 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Fabricação Asa e Fuselagem', prazo: '2023-06-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração Motores Trent 700', prazo: '2023-10-15', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Instalação APU e Sistemas', prazo: '2024-02-20', status: 'ANDAMENTO' as const, funcs: ['0002'] },
+        { nome: 'Configuração de Cabine', prazo: '2024-06-10', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Testes Long-Range', prazo: '2024-10-01', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação EASA', prazo: '2025-01-20', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'B747-017', modelo: 'Boeing 747-8F', tipo: 'COMERCIAL' as const, capacidade: 140000, alcance: 8130,
@@ -246,6 +371,13 @@ async function main() {
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Adaptação para Versão Cargueira', prazo: '2023-03-15', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Piso de Carga', prazo: '2023-07-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Sistema de Carga', prazo: '2024-01-10', status: 'ANDAMENTO' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes de Capacidade de Carga', prazo: '2024-05-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação FAA Cargo', prazo: '2024-09-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'DA42-018', modelo: 'Diamond DA42 Twin Star', tipo: 'COMERCIAL' as const, capacidade: 4, alcance: 1700,
@@ -257,6 +389,13 @@ async function main() {
       testes: [
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Montagem Estrutura Composta', prazo: '2023-09-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Motores Diesel', prazo: '2023-12-10', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Integração Garmin G1000', prazo: '2024-04-20', status: 'ANDAMENTO' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes de Certificação CS-23', prazo: '2024-07-30', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Entrega ao Operador', prazo: '2024-10-15', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -271,6 +410,15 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'REPROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Fabricação Rotor Fenestron', prazo: '2023-06-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Instalação Motores Safran', prazo: '2023-10-01', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Análise Falha Aerodinâmica', prazo: '2024-02-20', status: 'CONCLUIDA' as const, funcs: ['0001', '0002'] },
+        { nome: 'Correção Sistema de Rotor', prazo: '2024-05-10', status: 'ANDAMENTO' as const, funcs: ['0002'] },
+        { nome: 'Recepção AFCS Thales', prazo: '2024-08-01', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Novo Teste Aerodinâmico', prazo: '2024-10-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação EASA Rotorcraft', prazo: '2025-01-10', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'P68-020', modelo: 'Partenavia P.68C', tipo: 'COMERCIAL' as const, capacidade: 6, alcance: 1900,
@@ -281,6 +429,12 @@ async function main() {
       testes: [
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Revisão Estrutural', prazo: '2024-01-15', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Hélice Sensenich', prazo: '2024-04-01', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Integração e Balanceamento', prazo: '2024-07-10', status: 'PENDENTE' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes de Voo VFR', prazo: '2024-09-20', status: 'PENDENTE' as const, funcs: ['0001'] },
       ],
     },
     {
@@ -296,6 +450,14 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Fabricação Asa Supercrítica', prazo: '2023-08-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Montagem Fuselagem Militar', prazo: '2023-12-15', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Sistema de Carga Palletizado', prazo: '2024-04-20', status: 'ANDAMENTO' as const, funcs: ['0002'] },
+        { nome: 'Integração Sistemas Táticos', prazo: '2024-08-10', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Testes de Carga Máxima', prazo: '2024-11-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+        { nome: 'Qualificação USAF', prazo: '2025-02-15', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+      ],
     },
     {
       codigo: 'ICON-022', modelo: 'ICON A5', tipo: 'COMERCIAL' as const, capacidade: 2, alcance: 815,
@@ -306,6 +468,12 @@ async function main() {
       testes: [
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Fabricação Estrutura Anfíbia', prazo: '2024-02-01', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Recepção Flutuadores', prazo: '2024-05-15', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Instalação e Alinhamento', prazo: '2024-08-01', status: 'PENDENTE' as const, funcs: ['0002', '0003'] },
+        { nome: 'Testes Aquáticos e de Voo', prazo: '2024-10-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
       ],
     },
     {
@@ -321,6 +489,15 @@ async function main() {
         { tipo: 'HIDRAULICO' as const, resultado: 'REPROVADO' as const },
         { tipo: 'AERODINAMICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Projeto Asa Supercrítica Nacional', prazo: '2023-05-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Nacional Asa', prazo: '2023-09-15', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração Motores PW1900G', prazo: '2024-01-20', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Correção Sistema Hidráulico', prazo: '2024-05-10', status: 'ANDAMENTO' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Painel EFIS e Trem', prazo: '2024-08-30', status: 'PENDENTE' as const, funcs: ['0003'] },
+        { nome: 'Novo Teste Hidráulico', prazo: '2024-11-15', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação ANAC E2', prazo: '2025-02-01', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
     {
       codigo: 'AH2-024', modelo: 'AH-2 Sabre (AS.550 U2)', tipo: 'MILITAR' as const, capacidade: 2, alcance: 720,
@@ -332,6 +509,13 @@ async function main() {
       testes: [
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
+      ],
+      etapas: [
+        { nome: 'Conversão para Configuração de Ataque', prazo: '2023-07-01', status: 'CONCLUIDA' as const, funcs: ['0001'] },
+        { nome: 'Integração Canhão M230', prazo: '2024-01-15', status: 'ANDAMENTO' as const, funcs: ['0001', '0003'] },
+        { nome: 'Testes de Armamento em Terra', prazo: '2024-05-20', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Testes de Voo Tático', prazo: '2024-08-10', status: 'PENDENTE' as const, funcs: ['0001'] },
+        { nome: 'Qualificação Operacional', prazo: '2024-11-01', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
       ],
     },
     {
@@ -347,39 +531,57 @@ async function main() {
         { tipo: 'ELETRICO' as const, resultado: 'APROVADO' as const },
         { tipo: 'HIDRAULICO' as const, resultado: 'APROVADO' as const },
       ],
+      etapas: [
+        { nome: 'Projeto Winglet Nacional', prazo: '2023-04-01', status: 'CONCLUIDA' as const, funcs: ['0002'] },
+        { nome: 'Fabricação Fuselagem Composta', prazo: '2023-08-20', status: 'CONCLUIDA' as const, funcs: ['0003'] },
+        { nome: 'Integração Motores CF34', prazo: '2023-12-10', status: 'CONCLUIDA' as const, funcs: ['0002', '0003'] },
+        { nome: 'Fabricação Winglet Retrátil', prazo: '2024-04-15', status: 'ANDAMENTO' as const, funcs: ['0003'] },
+        { nome: 'Testes de Desempenho', prazo: '2024-08-01', status: 'PENDENTE' as const, funcs: ['0001', '0002'] },
+        { nome: 'Certificação Final ANAC', prazo: '2024-11-20', status: 'PENDENTE' as const, funcs: ['0001'] },
+      ],
     },
   ]
 
   for (const av of aeronaves) {
+    const { etapas, ...avData } = av
     await prisma.aeronave.upsert({
-      where: { codigo: av.codigo },
+      where: { codigo: avData.codigo },
       update: {},
       create: {
-        codigo: av.codigo,
-        modelo: av.modelo,
-        tipo: av.tipo,
-        capacidade: av.capacidade,
-        alcance: av.alcance,
-        pecas: { create: av.pecas },
-        testes: { create: av.testes },
+        codigo: avData.codigo,
+        modelo: avData.modelo,
+        tipo: avData.tipo,
+        capacidade: avData.capacidade,
+        alcance: avData.alcance,
+        pecas: { create: avData.pecas },
+        testes: { create: avData.testes },
       },
     })
   }
 
-  // ── Etapas da aeronave E175-001 ───────────────────────────────────────────
-  const a1 = await prisma.aeronave.findUnique({ where: { codigo: 'E175-001' } })
-  if (a1) {
-    const etapaCount = await prisma.etapa.count({ where: { aeronaveId: a1.id } })
-    if (etapaCount === 0) {
-      const etapa1 = await prisma.etapa.create({ data: { nome: 'Projeto e Design', prazo: '2024-01-30', status: 'CONCLUIDA', aeronaveId: a1.id } })
-      await prisma.etapaFuncionario.create({ data: { etapaId: etapa1.id, funcionarioId: '0002' } })
-      const etapa2 = await prisma.etapa.create({ data: { nome: 'Montagem da Estrutura', prazo: '2024-06-30', status: 'ANDAMENTO', aeronaveId: a1.id } })
-      await prisma.etapaFuncionario.create({ data: { etapaId: etapa2.id, funcionarioId: '0001' } })
-      await prisma.etapaFuncionario.create({ data: { etapaId: etapa2.id, funcionarioId: '0002' } })
+  // ── Etapas por aeronave ───────────────────────────────────────────────────
+  for (const av of aeronaves) {
+    const aeronave = await prisma.aeronave.findUnique({ where: { codigo: av.codigo } })
+    if (!aeronave) continue
+
+    const etapaCount = await prisma.etapa.count({ where: { aeronaveId: aeronave.id } })
+    if (etapaCount > 0) continue
+
+    for (const etapa of av.etapas) {
+      const { funcs, ...etapaData } = etapa
+      const created = await prisma.etapa.create({
+        data: { ...etapaData, aeronave: { connect: { id: aeronave.id } } },
+      })
+      for (const funcId of funcs) {
+        await prisma.etapaFuncionario.create({
+          data: { etapaId: created.id, funcionarioId: funcId },
+        })
+      }
     }
   }
 
-  console.log('✅ Seed concluído com sucesso! 25 aeronaves inseridas.')
+  const totalEtapas = aeronaves.reduce((s, a) => s + a.etapas.length, 0)
+  console.log(`✅ Seed concluído! 25 aeronaves e ${totalEtapas} etapas inseridas.`)
 }
 
 main()

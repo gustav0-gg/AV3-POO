@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { aeronavesAPI, funcionariosAPI } from './services/api'
+import { useAuth } from './context/AuthContext'
 
 const AppContext = createContext(null)
 
@@ -7,6 +8,8 @@ export function AppProvider({ children }) {
   const [aeronaves, setAeronaves]       = useState([])
   const [funcionarios, setFuncionarios] = useState([])
   const [loadingData, setLoadingData]   = useState(false)
+
+  const { isAuthenticated } = useAuth()
 
   // ── Carrega dados do backend ───────────────────────────────────────────────
   const fetchAll = useCallback(async () => {
@@ -26,10 +29,13 @@ export function AppProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if (localStorage.getItem('aerocode_token')) {
+    if (isAuthenticated) {
       fetchAll()
+    } else {
+      setAeronaves([])
+      setFuncionarios([])
     }
-  }, []) // eslint-disable-line
+  }, [isAuthenticated, fetchAll])
 
   // ── Aeronaves ──────────────────────────────────────────────────────────────
   const addAeronave = async (data) => {
